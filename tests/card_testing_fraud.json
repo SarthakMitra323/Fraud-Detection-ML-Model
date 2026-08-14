@@ -1,0 +1,14 @@
+{
+  "amount": 2.50,
+  "transaction_type": "PAYMENT",
+  "old_balance": 150.00,
+  "new_balance": 147.50,
+  "device_age_days": 1,
+  "account_age_days": 300,
+  "transactions_last_hour": 15,
+  "transactions_last_day": 45,
+  "failed_transactions_last_day": 8,
+  "distance_from_usual_location_km": 1.5,
+  "is_new_device": true,
+  "is_new_location": false
+}
