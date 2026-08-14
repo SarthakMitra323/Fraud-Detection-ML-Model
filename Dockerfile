@@ -1,21 +1,15 @@
-# Use lightweight official Python image
-FROM python:3.10-slim
-
-# Prevent Python from writing pyc files and buffer stdout/stderr
-ENV PYTHONUNBUFFERED=1
+FROM python:3.12-slim
 
 WORKDIR /app
 
-# Install dependencies first for Docker layer caching
+# Install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application code and trained models
+# Copy application files and models
 COPY app/ ./app/
 COPY models/ ./models/
 
-# Expose port (Cloud Run sets PORT env var dynamically)
-ENV PORT=8080
+EXPOSE 8080
 
-# Run Uvicorn using 0.0.0.0 to accept traffic routed by Cloud Run
-CMD ["python", "app/main.py"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
