@@ -1,0 +1,14 @@
+{
+  "amount": 49500.00,
+  "transaction_type": "TRANSFER",
+  "old_balance": 49500.00,
+  "new_balance": 0.00,
+  "device_age_days": 0,
+  "account_age_days": 12,
+  "transactions_last_hour": 1,
+  "transactions_last_day": 1,
+  "failed_transactions_last_day": 0,
+  "distance_from_usual_location_km": 450.0,
+  "is_new_device": true,
+  "is_new_location": true
+}
