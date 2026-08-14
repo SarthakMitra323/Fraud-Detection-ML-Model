@@ -1,0 +1,37 @@
+{
+  "model_name": "fraud_detection_model",
+  "version": "1.0.0",
+  "algorithm": "XGBoost",
+  "training_date": "2026-08-14T08:01:41.029839Z",
+  "feature_count": 19,
+  "features": [
+    "num__amount",
+    "num__old_balance",
+    "num__new_balance",
+    "num__device_age_days",
+    "num__account_age_days",
+    "num__transactions_last_hour",
+    "num__transactions_last_day",
+    "num__failed_transactions_last_day",
+    "num__distance_from_usual_location_km",
+    "num__is_new_device",
+    "num__is_new_location",
+    "num__balance_change",
+    "num__amount_to_old_balance_ratio",
+    "num__transaction_amount_log",
+    "num__velocity_risk",
+    "cat__transaction_type_DEPOSIT",
+    "cat__transaction_type_PAYMENT",
+    "cat__transaction_type_TRANSFER",
+    "cat__transaction_type_WITHDRAWAL"
+  ],
+  "metrics": {
+    "Accuracy": 0.9448,
+    "Precision": 0.14991896272285252,
+    "Recall": 0.7708333333333334,
+    "F1": 0.2510176390773406,
+    "ROC-AUC": 0.9415551197705804,
+    "PR-AUC": 0.45292328143129257
+  },
+  "fraud_threshold": 0.65
+}
