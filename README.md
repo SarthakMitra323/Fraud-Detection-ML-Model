@@ -42,7 +42,7 @@ fraud-api/
 
 ### 1. Clone the repository
 ```bash
-git clone [https://github.com/yourusername/fraud-api.git](https://github.com/yourusername/fraud-api.git)
+git clone https://github.com/SarthakMitra323/Fraud-Detection-ML-Model.git
 cd fraud-api
 ```
 
