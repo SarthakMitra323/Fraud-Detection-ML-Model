@@ -3,7 +3,7 @@
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.100%2B-009688)
 ![XGBoost](https://img.shields.io/badge/XGBoost-Enabled-orange)
-![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
+![License: MIT](https://img.shields.io/badge/License-Apache_2.0-green.svg)
 
 A production-ready, real-time Machine Learning API built with **FastAPI**, **XGBoost**, and **Scikit-Learn**. This API evaluates financial transactions and returns a fraud probability score along with explainable AI (XAI) risk signals.
 
