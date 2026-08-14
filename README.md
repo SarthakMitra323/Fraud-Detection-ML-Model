@@ -28,6 +28,11 @@ fraud-api/
 │   ├── model.json         # XGBoost model weights
 │   ├── preprocessor.joblib# Scikit-Learn ColumnTransformer
 │   └── metadata.json      # Model thresholds and metadata
+├── tests/
+│   ├── legitimate_transaction.json
+│   ├── account_takeover_fraud.json
+│   ├── card_testing_fraud.json
+│   └── wealthy_traveler_legitimate.json
 ├── Dockerfile             # Container configuration
 ├── requirements.txt       # Python dependencies
 └── README.md
@@ -65,7 +70,7 @@ Visit `http://localhost:8080/docs` in your browser to interact with the automati
 
 ## 🐳 Docker Deployment
 
-To bypass local environment setups and run the API exactly as it will run in production:
+To bypass local environment setups and run the API in a containerized environment:
 
 ```bash
 # Build the image
@@ -75,30 +80,36 @@ docker build -t fraud-api .
 docker run -p 8080:8080 fraud-api
 ```
 
-## 📡 API Usage
+## 📡 API Usage & Testing
 
 **Endpoint:** `POST /api/v1/predict`
 
-### Example Request
+### Testing with Sample Payloads
+
+You can use the included JSON fixtures in the `tests/` directory to test the API via `curl`:
+
+#### 1. Test an Account Takeover Attack
 ```bash
 curl -X 'POST' \
   'http://localhost:8080/api/v1/predict' \
-  -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
-  -d '{
-  "amount": 49500.00,
-  "transaction_type": "TRANSFER",
-  "old_balance": 49500.00,
-  "new_balance": 0.00,
-  "device_age_days": 0,
-  "account_age_days": 12,
-  "transactions_last_hour": 1,
-  "transactions_last_day": 1,
-  "failed_transactions_last_day": 0,
-  "distance_from_usual_location_km": 450.0,
-  "is_new_device": true,
-  "is_new_location": true
-}'
+  -d @tests/account_takeover_fraud.json
+```
+
+#### 2. Test a Standard Legitimate Payment
+```bash
+curl -X 'POST' \
+  'http://localhost:8080/api/v1/predict' \
+  -H 'Content-Type: application/json' \
+  -d @tests/legitimate_transaction.json
+```
+
+#### 3. Test High-Velocity Card Testing
+```bash
+curl -X 'POST' \
+  'http://localhost:8080/api/v1/predict' \
+  -H 'Content-Type: application/json' \
+  -d @tests/card_testing_fraud.json
 ```
 
 ### Example Response
