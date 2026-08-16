@@ -26,13 +26,13 @@ ml_engine = FraudPredictionEngine(model_dir="models")
 # TOKEN BUCKET RATE LIMITER
 # ==============================================================================
 class TokenBucketLimiter:
-    def __init__(self, capacity: int, refill_rate_per_minute: int):
+    def __init__(self, capacity: int, refill_rate_per_sec: float):
         """
-        :param capacity: The max burst of requests allowed instantly.
-        :param refill_rate_per_minute: How many tokens regenerate every 60 seconds.
+        :param capacity: The max burst of requests allowed instantly (max unused quota).
+        :param refill_rate_per_sec: How many tokens regenerate every second.
         """
         self.capacity = capacity
-        self.refill_rate_per_sec = refill_rate_per_minute / 60.0
+        self.refill_rate_per_sec = refill_rate_per_sec
         self.tokens: Dict[str, float] = {}
         self.last_update: Dict[str, float] = {}
 
@@ -61,11 +61,11 @@ class TokenBucketLimiter:
         else:
             raise HTTPException(
                 status_code=429,
-                detail=f"Too Many Requests. Limit is {int(self.refill_rate_per_sec * 60)} per minute."
+                detail=f"Too Many Requests. Limit is {self.refill_rate_per_sec} requests per second with a max burst of {self.capacity}."
             )
 
-# Create an instance for the predict route (20 requests per minute burst)
-standard_limit = TokenBucketLimiter(capacity=20, refill_rate_per_minute=20)
+# Create an instance for the predict route (100 capacity, 2 tokens/sec)
+standard_limit = TokenBucketLimiter(capacity=20, refill_rate_per_sec=2.0)
 
 @app.get("/", include_in_schema=False)
 def root():
